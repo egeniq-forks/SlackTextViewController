@@ -266,13 +266,22 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface SLKTextViewController : UIViewController 
 - (void)textSelectionDidChange NS_REQUIRES_SUPER;
 
 /**
- Notifies the view controller when the left button's action has been triggered, manually.
- You can override this method to perform additional tasks associated with the left button.
+ Notifies the view controller when the audio button's action has been triggered, manually.
+ You can override this method to perform additional tasks associated with the audio button.
  You don't need call super since this method doesn't do anything.
  
  @param sender The object calling this method.
  */
-- (void)didPressLeftButton:(id _Nullable)sender;
+- (void)didPressAudioButton:(id _Nullable)sender;
+
+/**
+Notifies the view controller when the camera button's action has been triggered, manually.
+You can override this method to perform additional tasks associated with the camera button.
+You don't need call super since this method doesn't do anything.
+
+@param sender The object calling this method.
+*/
+- (void)didPressCameraButton:(id _Nullable)sender;
 
 /**
  Notifies the view controller when the right button's action has been triggered, manually or by using the keyboard return key.

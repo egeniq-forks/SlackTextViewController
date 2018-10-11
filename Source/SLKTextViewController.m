@@ -318,7 +318,8 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
         _textInputbar = [[SLKTextInputbar alloc] initWithTextViewClass:self.textViewClass];
         _textInputbar.translatesAutoresizingMaskIntoConstraints = NO;
         
-        [_textInputbar.audioButton addTarget:self action:@selector(didPressLeftButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_textInputbar.audioButton addTarget:self action:@selector(didPressAudioButton:) forControlEvents:UIControlEventTouchUpInside];
+        [_textInputbar.cameraButton addTarget:self action:@selector(didPressCameraButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.rightButton addTarget:self action:@selector(didPressRightButton:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.editorLeftButton addTarget:self action:@selector(didCancelTextEditing:) forControlEvents:UIControlEventTouchUpInside];
         [_textInputbar.editorRightButton addTarget:self action:@selector(didCommitTextEditing:) forControlEvents:UIControlEventTouchUpInside];
@@ -763,7 +764,12 @@ CGFloat const SLKAutoCompletionViewDefaultHeight = 140.0;
     return NO;
 }
 
-- (void)didPressLeftButton:(id)sender
+- (void)didPressAudioButton:(id)sender
+{
+    // No implementation here. Meant to be overriden in subclass.
+}
+
+- (void)didPressCameraButton:(id)sender
 {
     // No implementation here. Meant to be overriden in subclass.
 }

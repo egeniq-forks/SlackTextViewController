@@ -112,6 +112,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     
     [self slk_registerTo:self.layer forSelector:@selector(position)];
     [self slk_registerTo:self.audioButton.imageView forSelector:@selector(image)];
+    [self slk_registerTo:self.cameraButton.imageView forSelector:@selector(image)];
     [self slk_registerTo:self.rightButton.titleLabel forSelector:@selector(font)];
 }
 
@@ -738,7 +739,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
             self.audioButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - audioButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
         }
 
-        CGSize cameraButtonSize = [self.audioButton imageForState:self.audioButton.state].size;
+        CGSize cameraButtonSize = [self.cameraButton imageForState:self.cameraButton.state].size;
         if (cameraButtonSize.width > 0) {
             self.cameraButtonHC.constant = roundf(cameraButtonSize.height);
             self.cameraButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - cameraButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;

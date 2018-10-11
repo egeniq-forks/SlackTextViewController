@@ -91,9 +91,6 @@
     self.shouldScrollToBottomAfterKeyboardShows = NO;
     self.inverted = YES;
     
-    [self.audioButton setImage:[UIImage imageNamed:@"icn_upload"] forState:UIControlStateNormal];
-    [self.audioButton setTintColor:[UIColor blueColor]];
-
     [self.cameraButton setImage:[UIImage imageNamed:@"icn_upload"] forState:UIControlStateNormal];
     [self.cameraButton setTintColor:[UIColor redColor]];
 
@@ -418,17 +415,14 @@
     [super textDidUpdate:animated];
 }
 
-- (void)didPressLeftButton:(id)sender
+- (void)didPressAudioButton:(id)sender
 {
-    // Notifies the view controller when the left button's action has been triggered, manually.
-    
-    [super didPressLeftButton:sender];
-    
-    UIViewController *vc = [UIViewController new];
-    vc.view.backgroundColor = [UIColor whiteColor];
-    vc.title = @"Details";
-    
-    [self.navigationController pushViewController:vc animated:YES];
+    NSLog(@"Audio");
+}
+
+- (void)didPressCameraButton:(id)sender
+{
+    NSLog(@"Camera");
 }
 
 - (void)didPressRightButton:(id)sender
