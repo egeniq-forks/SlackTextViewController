@@ -91,9 +91,12 @@
     self.shouldScrollToBottomAfterKeyboardShows = NO;
     self.inverted = YES;
     
-    [self.leftButton setImage:[UIImage imageNamed:@"icn_upload"] forState:UIControlStateNormal];
-    [self.leftButton setTintColor:[UIColor grayColor]];
-    
+    [self.audioButton setImage:[UIImage imageNamed:@"icn_upload"] forState:UIControlStateNormal];
+    [self.audioButton setTintColor:[UIColor blueColor]];
+
+    [self.cameraButton setImage:[UIImage imageNamed:@"icn_upload"] forState:UIControlStateNormal];
+    [self.cameraButton setTintColor:[UIColor redColor]];
+
     [self.rightButton setTitle:NSLocalizedString(@"Send", nil) forState:UIControlStateNormal];
     
     self.textInputbar.autoHideRightButton = YES;

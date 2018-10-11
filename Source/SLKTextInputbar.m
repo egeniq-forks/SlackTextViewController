@@ -90,6 +90,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 
     [self addSubview:self.editorContentView];
     [self addSubview:self.audioButton];
+    [self addSubview:self.cameraButton];
     [self addSubview:self.rightButton];
     [self addSubview:self.textView];
     [self addSubview:self.charCountLabel];
@@ -186,6 +187,16 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         _audioButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
     }
     return _audioButton;
+}
+
+- (UIButton *)cameraButton
+{
+    if (!_cameraButton) {
+        _cameraButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        _cameraButton.translatesAutoresizingMaskIntoConstraints = NO;
+        _cameraButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    }
+    return _cameraButton;
 }
 
 - (UIButton *)rightButton
@@ -648,6 +659,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 {
     NSDictionary *views = @{@"textView": self.textView,
                             @"audioButton": self.audioButton,
+                            @"cameraButton": self.cameraButton,
                             @"rightButton": self.rightButton,
                             @"editorContentView": self.editorContentView,
                             @"charCountLabel": self.charCountLabel,
@@ -659,8 +671,9 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
                               @"right" : @(self.contentInset.right),
                               };
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[audioButton(0)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[audioButton(0)]-[cameraButton(30)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[audioButton(0)]-(0@750)-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[cameraButton(30)]-(0@750)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[rightButton]-(<=0)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left@250)-[charCountLabel(<=50@1000)]-(right@750)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[editorContentView(0)]-(<=top)-[textView(0@999)]-(0)-|" options:0 metrics:metrics views:views]];
@@ -758,6 +771,15 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         UIImage *newImage = change[NSKeyValueChangeNewKey];
         UIImage *oldImage = change[NSKeyValueChangeOldKey];
         
+        if (![newImage isEqual:oldImage]) {
+            [self slk_updateConstraintConstants];
+        }
+    }
+    else if ([object isEqual:self.cameraButton.imageView] && [keyPath isEqualToString:NSStringFromSelector(@selector(image))]) {
+
+        UIImage *newImage = change[NSKeyValueChangeNewKey];
+        UIImage *oldImage = change[NSKeyValueChangeOldKey];
+
         if (![newImage isEqual:oldImage]) {
             [self slk_updateConstraintConstants];
         }
