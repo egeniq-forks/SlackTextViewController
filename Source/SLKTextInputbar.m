@@ -21,10 +21,16 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 
 @property (nonatomic, strong) NSLayoutConstraint *textViewBottomMarginC;
 @property (nonatomic, strong) NSLayoutConstraint *contentViewHC;
+
 @property (nonatomic, strong) NSLayoutConstraint *audioButtonWC;
 @property (nonatomic, strong) NSLayoutConstraint *audioButtonHC;
 @property (nonatomic, strong) NSLayoutConstraint *audioMarginWC;
 @property (nonatomic, strong) NSLayoutConstraint *audioButtonBottomMarginC;
+
+@property (nonatomic, strong) NSLayoutConstraint *cameraButtonWC;
+@property (nonatomic, strong) NSLayoutConstraint *cameraButtonHC;
+@property (nonatomic, strong) NSLayoutConstraint *cameraButtonBottomMarginC;
+
 @property (nonatomic, strong) NSLayoutConstraint *rightButtonWC;
 @property (nonatomic, strong) NSLayoutConstraint *rightMarginWC;
 @property (nonatomic, strong) NSLayoutConstraint *rightButtonTopMarginC;
@@ -671,9 +677,9 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
                               @"right" : @(self.contentInset.right),
                               };
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[audioButton(0)]-[cameraButton(30)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[audioButton(0)]-10-[cameraButton(0)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[audioButton(0)]-(0@750)-|" options:0 metrics:metrics views:views]];
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[cameraButton(30)]-(0@750)-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[cameraButton(0)]-(0@750)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[rightButton]-(<=0)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left@250)-[charCountLabel(<=50@1000)]-(right@750)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[editorContentView(0)]-(<=top)-[textView(0@999)]-(0)-|" options:0 metrics:metrics views:views]];
@@ -690,8 +696,12 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
     self.audioButtonHC = [self slk_constraintForAttribute:NSLayoutAttributeHeight firstItem:self.audioButton secondItem:nil];
     self.audioButtonBottomMarginC = [self slk_constraintForAttribute:NSLayoutAttributeBottom firstItem:self secondItem:self.audioButton];
 
+    self.cameraButtonWC = [self slk_constraintForAttribute:NSLayoutAttributeWidth firstItem:self.cameraButton secondItem:nil];
+    self.cameraButtonHC = [self slk_constraintForAttribute:NSLayoutAttributeHeight firstItem:self.cameraButton secondItem:nil];
+    self.cameraButtonBottomMarginC = [self slk_constraintForAttribute:NSLayoutAttributeBottom firstItem:self secondItem:self.cameraButton];
+
     self.audioMarginWC = [[self slk_constraintsForAttribute:NSLayoutAttributeLeading] firstObject];
-    
+
     self.rightButtonWC = [self slk_constraintForAttribute:NSLayoutAttributeWidth firstItem:self.rightButton secondItem:nil];
     self.rightMarginWC = [[self slk_constraintsForAttribute:NSLayoutAttributeTrailing] firstObject];
     
@@ -711,24 +721,34 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         
         self.audioButtonWC.constant = zero;
         self.audioButtonHC.constant = zero;
+        self.cameraButtonWC.constant = zero;
+        self.cameraButtonHC.constant = zero;
         self.audioMarginWC.constant = zero;
         self.audioButtonBottomMarginC.constant = zero;
+        self.cameraButtonBottomMarginC.constant = zero;
         self.rightButtonWC.constant = zero;
         self.rightMarginWC.constant = zero;
     }
     else {
         self.editorContentViewHC.constant = zero;
         
-        CGSize leftButtonSize = [self.audioButton imageForState:self.audioButton.state].size;
-        
-        if (leftButtonSize.width > 0) {
-            self.audioButtonHC.constant = roundf(leftButtonSize.height);
-            self.audioButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - leftButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
+        CGSize audioButtonSize = [self.audioButton imageForState:self.audioButton.state].size;
+        if (audioButtonSize.width > 0) {
+            self.audioButtonHC.constant = roundf(audioButtonSize.height);
+            self.audioButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - audioButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
+        }
+
+        CGSize cameraButtonSize = [self.audioButton imageForState:self.audioButton.state].size;
+        if (cameraButtonSize.width > 0) {
+            self.cameraButtonHC.constant = roundf(cameraButtonSize.height);
+            self.cameraButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - cameraButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
         }
         
-        self.audioButtonWC.constant = roundf(leftButtonSize.width);
-        self.audioMarginWC.constant = (leftButtonSize.width > 0) ? self.contentInset.left : zero;
-        
+        self.audioButtonWC.constant = roundf(audioButtonSize.width);
+        self.audioMarginWC.constant = (audioButtonSize.width > 0) ? self.contentInset.left : zero;
+
+        self.cameraButtonWC.constant = roundf(cameraButtonSize.width);
+
         self.rightButtonWC.constant = [self slk_appropriateRightButtonWidth];
         self.rightMarginWC.constant = [self slk_appropriateRightButtonMargin];
         
