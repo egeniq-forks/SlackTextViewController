@@ -713,8 +713,8 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 - (void)slk_updateConstraintConstants
 {
     CGFloat zero = 0.0;
-    CGFloat extraButtonHeight = 16.0;
-    CGFloat extraButtonWidth  = 4.0;
+    CGFloat extraButtonHeight = 0.0;
+    CGFloat extraButtonWidth  = 6.0;
     
     self.textViewBottomMarginC.constant = self.slk_bottomMargin;
     
