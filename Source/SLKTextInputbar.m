@@ -713,8 +713,8 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 - (void)slk_updateConstraintConstants
 {
     CGFloat zero = 0.0;
-    CGFloat extraButtonHeight = 16.0;
-    CGFloat extraButtonWidth  = 4.0;
+    CGFloat extraAudioButtonWidth  = 6.0;
+    CGFloat extraCameraButtonWidth  = 16.0;
     
     self.textViewBottomMarginC.constant = self.slk_bottomMargin;
     
@@ -737,20 +737,20 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         
         CGSize audioButtonSize = [self.audioButton imageForState:self.audioButton.state].size;
         if (audioButtonSize.width > 0) {
-            self.audioButtonHC.constant = roundf(audioButtonSize.height) + extraButtonHeight;
-            self.audioButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - audioButtonSize.height) / 2.0) + self.slk_contentViewHeight / 3.0;
+            self.audioButtonHC.constant = roundf(audioButtonSize.height);
+            self.audioButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - audioButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
         }
         
         CGSize cameraButtonSize = [self.cameraButton imageForState:self.cameraButton.state].size;
         if (cameraButtonSize.width > 0) {
-            self.cameraButtonHC.constant = roundf(cameraButtonSize.height) + extraButtonHeight;
-            self.cameraButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - cameraButtonSize.height) / 2.0) + self.slk_contentViewHeight / 3.0;
+            self.cameraButtonHC.constant = roundf(cameraButtonSize.height);
+            self.cameraButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - cameraButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
         }
         
-        self.audioButtonWC.constant = roundf(audioButtonSize.width) + extraButtonWidth;
+        self.audioButtonWC.constant = roundf(audioButtonSize.width) + extraAudioButtonWidth;
         self.audioMarginWC.constant = (audioButtonSize.width > 0) ? self.contentInset.left : zero;
         
-        self.cameraButtonWC.constant = roundf(cameraButtonSize.width) + extraButtonWidth;
+        self.cameraButtonWC.constant = roundf(cameraButtonSize.width) + extraCameraButtonWidth;
         
         self.rightButtonWC.constant = [self slk_appropriateRightButtonWidth];
         self.rightMarginWC.constant = [self slk_appropriateRightButtonMargin];
