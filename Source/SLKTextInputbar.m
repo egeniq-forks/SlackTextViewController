@@ -678,7 +678,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
                               @"right" : @(self.contentInset.right),
                               };
     
-    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[audioButton(0)]-10-[cameraButton(0)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|" options:0 metrics:metrics views:views]];
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(left)-[audioButton(0)]-4-[cameraButton(0)]-(<=left)-[textView]-(right)-[rightButton(0)]-(right)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[audioButton(0)]-(0@750)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[cameraButton(0)]-(0@750)-|" options:0 metrics:metrics views:views]];
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(>=0)-[rightButton]-(<=0)-|" options:0 metrics:metrics views:views]];
@@ -713,7 +713,7 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
 - (void)slk_updateConstraintConstants
 {
     CGFloat zero = 0.0;
-    CGFloat extraAudioButtonWidth  = 6.0;
+    CGFloat extraAudioButtonWidth  = 10.0;
     CGFloat extraCameraButtonWidth  = 16.0;
     
     self.textViewBottomMarginC.constant = self.slk_bottomMargin;
@@ -737,14 +737,14 @@ NSString * const SLKTextInputbarDidMoveNotification =   @"SLKTextInputbarDidMove
         
         CGSize audioButtonSize = [self.audioButton imageForState:self.audioButton.state].size;
         if (audioButtonSize.width > 0) {
-            self.audioButtonHC.constant = roundf(audioButtonSize.height);
-            self.audioButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - audioButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
+            self.audioButtonHC.constant = roundf(audioButtonSize.height) * 2;
+            self.audioButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - audioButtonSize.height) / 3.0) + self.slk_contentViewHeight / 2.0;
         }
         
         CGSize cameraButtonSize = [self.cameraButton imageForState:self.cameraButton.state].size;
         if (cameraButtonSize.width > 0) {
-            self.cameraButtonHC.constant = roundf(cameraButtonSize.height);
-            self.cameraButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - cameraButtonSize.height) / 2.0) + self.slk_contentViewHeight / 2.0;
+            self.cameraButtonHC.constant = roundf(cameraButtonSize.height) * 2;
+            self.cameraButtonBottomMarginC.constant = roundf((self.intrinsicContentSize.height - cameraButtonSize.height) / 3.0) + self.slk_contentViewHeight / 2.0;
         }
         
         self.audioButtonWC.constant = roundf(audioButtonSize.width) + extraAudioButtonWidth;
